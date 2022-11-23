@@ -1,0 +1,6 @@
+D:\Skylish Group\TaskManagement\TaskUtility\bin\Debug\TaskUtility.dll
+D:\Skylish Group\TaskManagement\TaskUtility\bin\Debug\TaskUtility.pdb
+D:\Skylish Group\TaskManagement\TaskUtility\obj\Debug\TaskUtility.csproj.CoreCompileInputs.cache
+D:\Skylish Group\TaskManagement\TaskUtility\obj\Debug\TaskUtility.dll
+D:\Skylish Group\TaskManagement\TaskUtility\obj\Debug\TaskUtility.pdb
+D:\Skylish Group\TaskManagement\TaskUtility\obj\Debug\TaskUtility.csprojAssemblyReference.cache

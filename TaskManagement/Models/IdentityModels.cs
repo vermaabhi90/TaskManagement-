@@ -3,6 +3,8 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using TaskUtility;
+using System.Data.SqlClient;
 
 namespace TaskManagement.Models
 {
@@ -20,14 +22,36 @@ namespace TaskManagement.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext()
-            : base("DefaultConnection", throwIfV1Schema: false)
+        public ApplicationDbContext(string ConStr) : base(ConStr)
         {
+            var connection = new SqlConnectionStringBuilder(ConStr);
+            this.Database.Connection.ConnectionString = connection.ConnectionString;
         }
+        protected override void OnModelCreating(System.Data.Entity.DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<IdentityUser>()
+                .ToTable("tbl_SysUser", "dbo").Property(p => p.Id).HasColumnName("User_Id");
+            modelBuilder.Entity<ApplicationUser>()
+                .ToTable("tbl_SysUser", "dbo").Property(p => p.Id).HasColumnName("User_Id");
 
+            modelBuilder.Entity<IdentityRole>().ToTable("tbl_SysRole", "dbo").Property(p => p.Id).HasColumnName("RoleId");
+            modelBuilder.Entity<IdentityRole>().ToTable("tbl_SysRole", "dbo").Property(p => p.Name).HasColumnName("RoleName");
+            modelBuilder.Entity<IdentityUserRole>().ToTable("tbl_SysUserRole").Property(p => p.UserId).HasColumnName("User_Id"); ;
+            modelBuilder.Entity<IdentityUserClaim>().ToTable("tbl_SysUserClaim").Property(p => p.Id).HasColumnName("ClaimId");
+            modelBuilder.Entity<IdentityUserClaim>().ToTable("tbl_SysUserClaim").Property(p => p.UserId).HasColumnName("User_Id");
+            modelBuilder.Entity<IdentityUserLogin>().ToTable("tbl_SysUserLogin").Property(p => p.UserId).HasColumnName("User_Id");
+
+        }
+        public static ApplicationDbContext Create(string ConStr)
+        {
+            Common.SQLCONNSTR = Common.SqlConnectionString;
+            return new ApplicationDbContext(ConStr);
+        }
         public static ApplicationDbContext Create()
         {
-            return new ApplicationDbContext();
+            Common.SQLCONNSTR = Common.SqlConnectionString;
+            return new ApplicationDbContext(Common.SqlConnectionString);
         }
     }
 }
