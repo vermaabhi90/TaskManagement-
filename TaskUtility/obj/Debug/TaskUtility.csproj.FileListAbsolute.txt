@@ -4,3 +4,8 @@ D:\Skylish Group\TaskManagement\TaskUtility\obj\Debug\TaskUtility.csproj.CoreCom
 D:\Skylish Group\TaskManagement\TaskUtility\obj\Debug\TaskUtility.dll
 D:\Skylish Group\TaskManagement\TaskUtility\obj\Debug\TaskUtility.pdb
 D:\Skylish Group\TaskManagement\TaskUtility\obj\Debug\TaskUtility.csprojAssemblyReference.cache
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\TaskUtility\bin\Debug\TaskUtility.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\TaskUtility\bin\Debug\TaskUtility.pdb
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\TaskUtility\obj\Debug\TaskUtility.csprojResolveAssemblyReference.cache
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\TaskUtility\obj\Debug\TaskUtility.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\TaskUtility\obj\Debug\TaskUtility.pdb

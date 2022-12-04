@@ -8,7 +8,7 @@ namespace TaskManagement.Controllers
 {
     public class HomeController : Controller
     {
-        [Route("Code/{CC}")]
+       
         public ActionResult Index(string CC)
         {
             return View();

@@ -49,8 +49,7 @@ namespace TaskManagement.Models
     public class LoginViewModel
     {
         [Required]
-        [Display(Name = "Email")]
-        [EmailAddress]
+        [Display(Name = "Email/Mobile No.")]       
         public string Email { get; set; }
 
         [Required]
@@ -60,6 +59,15 @@ namespace TaskManagement.Models
 
         [Display(Name = "Remember me?")]
         public bool RememberMe { get; set; }
+
+
+        [Required]
+        [Display(Name = "OTP")]       
+        public string OTP { get; set; }
+
+        public int EmpId { get; set; }
+
+
     }
 
     public class RegisterViewModel
