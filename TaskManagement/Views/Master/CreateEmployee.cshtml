@@ -1,0 +1,284 @@
+﻿@model BL.EmployeeModel
+
+@{
+    ViewBag.Title = "CreateEmployee";
+}
+
+<h2>Create/Edit Employee</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+
+    
+        <div class="form-horizontal">
+            <div>
+                @Html.ActionLink("Back to List", "GetEmployeeList")
+            </div>
+            <hr />
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group" hidden>
+                @Html.LabelFor(model => model.EmpId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.EmpId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.EmpId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FirstName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.FirstName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.LastName, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.LastName, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.EmailId, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(model => model.EmailId,  new { htmlAttributes = new { @class = "form-control", @id = "EmailId" }, onchange = "myFunction()" })
+                    @Html.ValidationMessageFor(model => model.EmailId, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PhoneNo, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-12">
+                    @Html.TextBoxFor(model => model.PhoneNo, new { htmlAttributes = new { @class = "form-control", @id = "PhoneNo" }, onchange = "checkMobile()", maxlength = 10 ,type = "number"})
+                    @Html.ValidationMessageFor(model => model.PhoneNo, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.isActive)
+                        @Html.ValidationMessageFor(model => model.isActive, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.gender, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.gender, new SelectList(new List<Object>
+           {
+                new { value = "Female"  , text = "Female"  },
+                new { value = "Male" , text = "Male" },
+                new { value = "Other" , text = "Other"}
+                },
+                "value",
+                "text",
+                Model.gender
+                )
+                )
+                </div>
+            </div>
+
+            @*<div class="form-group">
+                    @Html.LabelFor(model => model.User_Id, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.User_Id, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.User_Id, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.UserName, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.UserName, new { htmlAttributes = new { @class = "form-control" } })
+                        @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "text-danger" })
+                    </div>
+                </div>*@
+
+            @*@if (Model.EmpId > 0)
+                {
+
+                    <div class="form-group">
+                        @Html.LabelFor(model => model.CreatedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+                        <div class="col-md-5">
+                            @Html.TextBoxFor(model => model.CreatedBy, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+
+                        </div>
+                    </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.CreatedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.CreatedDate, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ModifiedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.ModifiedBy, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            @Html.LabelFor(model => model.ModifiedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                            <div class="col-md-10">
+                                @Html.TextBoxFor(model => model.ModifiedDate, new { htmlAttributes = new { @class = "form-control", @readonly = true } })
+
+                            </div>
+                        </div>
+
+                }*@
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-5">
+                    <input type="submit" value="Submit" class="btn btn-success" id="savebtn" />
+                    &nbsp; &nbsp; &nbsp; &nbsp;
+                    @if (Model.EmpId > 0 && (Model.User_Id == "" || Model.User_Id == null))
+                    {
+                        <input type="button" class="btn btn-primary" value="Create User" onclick="RegisterNewUser();" />
+                    }
+                </div>
+            </div>
+        </div>
+}
+<script>
+
+ function myFunction()
+    {
+            var EmailId = $("#EmailId").val();
+
+             if(EmailId == '')
+            {
+                alert("Please enter email address");
+            }
+
+             $.ajax({
+            type: 'POST',
+            url: "/Master/CheckEmaillAlreadyExits", // we are calling json method
+            dataType: 'json',
+            data: { EmpId: @Model.EmpId, Email: EmailId},
+            success: function (result) {
+                if(result == '500000')
+                {
+                    alert("Email already exists.");
+                        $("#savebtn").attr('disabled', true);
+                    return false;
+                }
+                 else
+                {
+                        $("#savebtn").attr('disabled', false);
+                }
+            }
+         });
+    }
+</script>
+<script>
+      function checkMobile()
+    {
+           
+            var Mobile = $("#PhoneNo").val();
+
+            if(Mobile == '')
+            {
+                alert("Please enter phone number");
+            }
+             $.ajax({
+                        type: 'POST',
+                        url: "/Master/CheckMobileAlreadyExits", // we are calling json method
+                        dataType: 'json',
+                        data: { EmpId: @Model.EmpId, Mobile: Mobile},
+                        success: function (result) {
+                            if(result == '500000')
+                            {
+                                $("#savebtn").attr('disabled', true);
+                                alert("Phone number already exists.");
+                                return false;
+                            }
+                            else
+                            {
+                                    $("#savebtn").attr('disabled', false);
+                            }
+                        }
+                     });
+    }
+
+</script>
+
+<script>
+    function RegisterNewUser()
+    {
+        var RegisterUsername = $("#EmailId").val();
+
+        if (RegisterUsername.toString() == "") {
+            $.smallBox({
+                title: "Please Enter User Name",
+                color: "orange",
+                timeout: 5000
+            });
+            $('#RegisterUsername').css('background-color', '#FF9999');
+            return false;
+        }
+
+        if (RegisterUsername.toString() !== "") {
+            var mail = RegisterUsername;
+
+            var mailformat = /^\w+([\.-]?\w+)*@@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            var patternArray = mail.match(mailformat);
+            if (patternArray == null) {
+                $.smallBox({
+                    title: "Please Enter valid Email",
+                    color: "orange",
+                    timeout: 5000
+                });
+                $('#RegisterUsername').css('background-color', '#FF9999');
+                return false;
+            }
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: "/Master/CreateNewUser", // we are calling json method
+            dataType: 'json',
+            data: { EmpId: @Model.EmpId, Email: RegisterUsername,UserName: RegisterUsername },
+            success: function (result) {
+                if(result == '500000')
+                {
+
+                    alert("Email with same name is already registerd.");
+                    window.location.reload();
+                }
+                else if(result == '0')
+                {
+                    alert("Please enter valid details");
+                    window.location.reload();
+                }
+                else
+                {
+                   alert("User created successfully.");
+                    window.location.reload();
+                }
+            }
+
+        });
+
+
+    }
+
+  
+
+</script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+    
+   }

@@ -1,0 +1,133 @@
+﻿@model BL.TaskModel
+
+@{
+    ViewBag.Title = "CreateTask";
+}
+
+<h2>Create/Edit Task</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        @Html.ActionLink("Back to List", "GetTaskList")
+        @if (Model.TaskId > 0)
+        {
+           <span class="label label-success" style="margin-left:15px;font:bold;color:limegreen"> Status : @Model.Status</span>
+        }
+        <hr />
+        @Html.HiddenFor(x => x.StatusId, new { id = "StatusId" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group" hidden>
+            @Html.LabelFor(model => model.TaskId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TaskId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TaskId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TaskName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TaskName, new { htmlAttributes = new { @class = "form-control" }, maxlength = 150 })
+                @Html.ValidationMessageFor(model => model.TaskName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isActive)
+                    @Html.ValidationMessageFor(model => model.isActive, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div> 
+        <div class="form-group">
+            @Html.LabelFor(model => model.TaskDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<input type="date" id="TaskDate" name="TaskDate" value="@Model.TaskDate.ToString("dd-mm-yyyy")" min="0">*@
+                <input type="date" name="TaskDate" id="TaskDate" value="@Model.TaskDate.ToString("yyyy-MM-dd")" placeholder="Select a date" class="form-control datepicker" data-dateformat="yyyy-MM-dd">
+                @Html.ValidationMessageFor(model => model.TaskDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TaskDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.TaskDescription, new { htmlAttributes = new { @class = "form-control" }, maxlength = 500 })
+                @*<textarea  id="TaskDescription" name="TaskDescription" rows="4" cols="100" maxlength="500" >@Model.TaskDescription </textarea>*@
+                @Html.ValidationMessageFor(model => model.TaskDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ccMail, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ccMail, new { htmlAttributes = new { @class = "form-control" }, maxlength = 200 })
+                @Html.ValidationMessageFor(model => model.ccMail, "", new { @class = "text-danger" })
+            </div>
+        </div>       
+        @if (Model.StatusId == 4 || Model.StatusId == 3)
+        {
+            <div class="form-group">
+                @Html.LabelFor(model => model.ApprovedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ApprovedBy, new { htmlAttributes = new { @class = "form-control" }, maxlength = 200 })
+                    @Html.ValidationMessageFor(model => model.ApprovedBy, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.ApprovedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.ApprovedDate, new { htmlAttributes = new { @class = "form-control" }, maxlength = 200 })
+                    @Html.ValidationMessageFor(model => model.ApprovedDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-10">
+                    @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" }, maxlength = 200 })
+                    @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                </div>
+            </div>
+           
+        }
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                @if (Model.StatusId == 0 || Model.StatusId == 1 || Model.StatusId == 4)
+                {
+                    <input type="submit" value="Save" class="btn btn-success" onclick="SetStatus('1')" />
+                }
+              
+                &nbsp; &nbsp; &nbsp; &nbsp;
+               @if (Model.TaskId > 0 && Model.StatusId == 1 || Model.StatusId == 4)
+                {
+                    <input type="submit" class="btn btn-primary" value="Submit" onclick="SetStatus('2');" />
+                }
+            </div>
+        </div>
+
+    </div>
+}
+<script src="/scripts/plugin/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
+<script>
+    function SetStatus(Status)
+    {
+        $("#StatusId").val(Status);
+    }
+</script>
+<script src="~/Scripts/jquery-1.10.2.js">
+
+        $('#TaskDate').datepicker({
+            dateFormat: 'dd/mm/yy',
+            minDate:0
+        });
+</script>
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<BL.EmployeeModel>
+
+@{
+    ViewBag.Title = "GetEmployeeList";
+}
+
+<h2>Employee List</h2>
+
+<p>
+    @Html.ActionLink("Create", "CreateEmployee",new { EmpId = 0})
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.EmpId)
+        </th>
+        <th>
+                Employee 
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.EmailId)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhoneNo)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.isActive)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.gender)
+        </th>
+       
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedBy)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ModifiedDate)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmpId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.FirstName) &nbsp;    
+            @Html.DisplayFor(modelItem => item.LastName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.EmailId)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNo)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.isActive)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.gender)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedBy)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ModifiedDate)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "CreateEmployee", new { EmpId = item.EmpId }) |
+        </td>
+    </tr>
+}
+
+</table>

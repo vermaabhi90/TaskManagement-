@@ -1,0 +1,7 @@
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\NewBL\bin\Debug\netstandard1.4\NewBL.deps.json
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\NewBL\bin\Debug\netstandard1.4\NewBL.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\NewBL\bin\Debug\netstandard1.4\NewBL.pdb
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\NewBL\obj\Debug\netstandard1.4\NewBL.csprojResolveAssemblyReference.cache
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\NewBL\obj\Debug\netstandard1.4\NewBL.AssemblyInfo.cs
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\NewBL\obj\Debug\netstandard1.4\NewBL.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\NewBL\obj\Debug\netstandard1.4\NewBL.pdb

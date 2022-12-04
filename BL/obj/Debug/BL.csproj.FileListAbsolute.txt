@@ -1,0 +1,9 @@
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\BL\obj\Debug\BL.csprojResolveAssemblyReference.cache
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\BL\bin\Debug\BL.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\BL\bin\Debug\BL.pdb
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\BL\bin\Debug\DAL.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\BL\bin\Debug\TaskUtility.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\BL\bin\Debug\DAL.pdb
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\BL\bin\Debug\TaskUtility.pdb
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\BL\obj\Debug\BL.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Task_Management\TaskManagement-\BL\obj\Debug\BL.pdb

@@ -1,0 +1,102 @@
+﻿@model BL.TaskModel
+
+@{
+    ViewBag.Title = "CreatePendingAprovalTask";
+}
+
+<h2>Pending Approval Task Details</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @Html.ActionLink("Back to List", "GetPendingApprovalTaskList")
+        @if (Model.TaskId > 0)
+        {
+            <span class="label label-success" style="margin-left:15px;font:bold;color:limegreen"> Status : @Model.Status</span>
+        }
+        <hr />
+        @Html.HiddenFor(x => x.StatusId, new { id = "StatusId" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group" hidden>
+            @Html.LabelFor(model => model.TaskId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TaskId, new { htmlAttributes = new { @class = "form-control" }, @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.TaskId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TaskName, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TaskName, new { htmlAttributes = new { @class = "form-control" }, maxlength = 150, @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.TaskName, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isActive, new { @readonly = "readonly" })
+                    @Html.ValidationMessageFor(model => model.isActive, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.TaskDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*<input type="date" id="TaskDate" name="TaskDate" value="@Model.TaskDate.ToString("dd-mm-yyyy")" min="0">*@
+                <input type="date" name="TaskDate" id="TaskDate" value="@Model.TaskDate.ToString("yyyy-MM-dd")" readonly placeholder="Select a date" class="form-control datepicker" data-dateformat="yyyy-MM-dd">
+                @Html.ValidationMessageFor(model => model.TaskDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TaskDescription, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.TextAreaFor(model => model.TaskDescription, new { htmlAttributes = new { @class = "form-control" }, maxlength = 500, @readonly = "readonly" })
+                @*<textarea  id="TaskDescription" name="TaskDescription" rows="4" cols="100" maxlength="500" >@Model.TaskDescription </textarea>*@
+                @Html.ValidationMessageFor(model => model.TaskDescription, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.ccMail, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.ccMail, new { htmlAttributes = new { @class = "form-control" }, maxlength = 200, @readonly = "readonly" })
+                @Html.ValidationMessageFor(model => model.ccMail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+        <div class="form-group">
+            @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" }, maxlength = 200 })
+                @Html.ValidationMessageFor(model => model.ccMail, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-5">
+                <input type="submit" value="Approve" class="btn btn-success" onclick="SetStatus('3')" />
+                &nbsp; &nbsp; &nbsp; &nbsp;
+               
+                    <input type="submit" class="btn btn-warning" value="Reject" onclick="SetStatus('4');" />
+            </div>
+        </div>
+
+    </div>
+}
+<script>
+    function SetStatus(Status)
+    {
+        $("#StatusId").val(Status);
+    }
+</script>
+
+
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
