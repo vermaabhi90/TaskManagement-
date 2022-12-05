@@ -12,105 +12,99 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        @Html.ActionLink("Back to List", "GetTaskList")
+        
         @if (Model.TaskId > 0)
         {
            <span class="label label-success" style="margin-left:15px;font:bold;color:limegreen"> Status : @Model.Status</span>
         }
         <hr />
-        @Html.HiddenFor(x => x.StatusId, new { id = "StatusId" })
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group" hidden>
-            @Html.LabelFor(model => model.TaskId, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TaskId, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TaskId, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TaskName, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.TaskName, new { htmlAttributes = new { @class = "form-control" }, maxlength = 150 })
-                @Html.ValidationMessageFor(model => model.TaskName, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                <div class="checkbox">
-                    @Html.EditorFor(model => model.isActive)
-                    @Html.ValidationMessageFor(model => model.isActive, "", new { @class = "text-danger" })
-                </div>
-            </div>
-        </div> 
-        <div class="form-group">
-            @Html.LabelFor(model => model.TaskDate, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @*<input type="date" id="TaskDate" name="TaskDate" value="@Model.TaskDate.ToString("dd-mm-yyyy")" min="0">*@
-                <input type="date" name="TaskDate" id="TaskDate" value="@Model.TaskDate.ToString("yyyy-MM-dd")" placeholder="Select a date" class="form-control datepicker" data-dateformat="yyyy-MM-dd">
-                @Html.ValidationMessageFor(model => model.TaskDate, "", new { @class = "text-danger" })
-            </div>
-        </div>
-
-        <div class="form-group">
-            @Html.LabelFor(model => model.TaskDescription, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextAreaFor(model => model.TaskDescription, new { htmlAttributes = new { @class = "form-control",@style="width:100%" }, maxlength = 500 })
-                @*<textarea  id="TaskDescription" name="TaskDescription" rows="4" cols="100" maxlength="500" >@Model.TaskDescription </textarea>*@
-                @Html.ValidationMessageFor(model => model.TaskDescription, "", new { @class = "text-danger" })
-            </div>
-        </div>
-        <div class="form-group">
-            @Html.LabelFor(model => model.ccMail, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.ccMail, new { htmlAttributes = new { @class = "form-control" }, maxlength = 200 })
-                @Html.ValidationMessageFor(model => model.ccMail, "", new { @class = "text-danger" })
-            </div>
-        </div>       
-        @if (Model.StatusId == 4 || Model.StatusId == 3)
-        {
-            <div class="form-group">
-                @Html.LabelFor(model => model.ApprovedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+        <form class="forms-sample">
+            @Html.HiddenFor(x => x.StatusId, new { id = "StatusId" })
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group" hidden>
+                @Html.LabelFor(model => model.TaskId, htmlAttributes: new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
-                    @Html.EditorFor(model => model.ApprovedBy, new { htmlAttributes = new { @class = "form-control" }, maxlength = 200 })
-                    @Html.ValidationMessageFor(model => model.ApprovedBy, "", new { @class = "text-danger" })
+                    @Html.EditorFor(model => model.TaskId, new { htmlAttributes = new { @class = "form-control" } })
+                    @Html.ValidationMessageFor(model => model.TaskId, "", new { @class = "text-danger" })
                 </div>
+            </div>
+
+            <div class="form-group">
+                <label>Task Name</label>
+                <input type="text" class="form-control" id="TaskName" name="TaskName" placeholder="Task Name" maxlength="150" value="@Model.TaskName" required>
+            </div>
+
+          
+            <div class="form-group">
+                @Html.LabelFor(model => model.TaskDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    @*<input type="date" id="TaskDate" name="TaskDate" value="@Model.TaskDate.ToString("dd-mm-yyyy")" min="0">*@
+                    <input type="date" name="TaskDate" id="TaskDate" value="@Model.TaskDate.ToString("yyyy-MM-dd")" placeholder="Select a date" class="form-control datepicker" data-dateformat="yyyy-MM-dd" required>
+                    @Html.ValidationMessageFor(model => model.TaskDate, "", new { @class = "text-danger" })
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="exampleTextarea1">Task Description</label>
+                <textarea class="form-control" id="TaskDescription" name="TaskDescription" maxlength="500" rows="10" cols="5"  placeholder="Description" required>@Model.TaskDescription</textarea>
+                </div>
+            <div class="form-group">
+                <label>cc Mail</label>
+                <input type="text" class="form-control" id="ccMail" name="ccMail" placeholder="cc Mail" maxlength="200" value="@Model.ccMail" required>
             </div>
             <div class="form-group">
-                @Html.LabelFor(model => model.ApprovedDate, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.ApprovedDate, new { htmlAttributes = new { @class = "form-control" }, maxlength = 200 })
-                    @Html.ValidationMessageFor(model => model.ApprovedDate, "", new { @class = "text-danger" })
+                @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "control-label col-md-2" })
+                <div class="col-md-5">
+                    <div class="checkbox">
+                        @Html.EditorFor(model => model.isActive)
+                        @Html.ValidationMessageFor(model => model.isActive, "", new { @class = "text-danger" })
+                    </div>
                 </div>
             </div>
+            @if (Model.StatusId == 4 || Model.StatusId == 3)
+            {
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ApprovedBy, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ApprovedBy, new { htmlAttributes = new { @class = "form-control" }, maxlength = 200 })
+                        @Html.ValidationMessageFor(model => model.ApprovedBy, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.ApprovedDate, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.ApprovedDate, new { htmlAttributes = new { @class = "form-control" }, maxlength = 200 })
+                        @Html.ValidationMessageFor(model => model.ApprovedDate, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" }, maxlength = 200 })
+                        @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                    </div>
+                </div>
+
+            }
+
             <div class="form-group">
-                @Html.LabelFor(model => model.Remark, htmlAttributes: new { @class = "control-label col-md-2" })
-                <div class="col-md-10">
-                    @Html.EditorFor(model => model.Remark, new { htmlAttributes = new { @class = "form-control" }, maxlength = 200 })
-                    @Html.ValidationMessageFor(model => model.Remark, "", new { @class = "text-danger" })
+                <div class="col-md-offset-2 col-md-5">
+                    @if (Model.StatusId == 0 || Model.StatusId == 1 || Model.StatusId == 4)
+                    {
+                        <input type="submit" value="Save" class="btn btn-success" onclick="SetStatus('1')" />
+                    }
+
+                    &nbsp; &nbsp; &nbsp; &nbsp;
+                    @if (Model.TaskId > 0 && Model.StatusId == 1 || Model.StatusId == 4)
+                    {
+                        <input type="submit" class="btn btn-primary" value="Submit" onclick="SetStatus('2');" />
+                    }
+                    &nbsp; &nbsp; &nbsp; &nbsp;
+                    <a class="btn btn-warning" href="@Url.Action("GetTaskList","Master")">Back to List</a>
                 </div>
             </div>
-           
-        }
-
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-5">
-                @if (Model.StatusId == 0 || Model.StatusId == 1 || Model.StatusId == 4)
-                {
-                    <input type="submit" value="Save" class="btn btn-success" onclick="SetStatus('1')" />
-                }
-              
-                &nbsp; &nbsp; &nbsp; &nbsp;
-               @if (Model.TaskId > 0 && Model.StatusId == 1 || Model.StatusId == 4)
-                {
-                    <input type="submit" class="btn btn-primary" value="Submit" onclick="SetStatus('2');" />
-                }
-            </div>
-        </div>
-
-    </div>
+            </form>
+</div>
 }
 <script src="/scripts/plugin/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
 <script>
@@ -131,36 +125,3 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
-<div class="card-body">
-    <h4 class="card-title">Default form</h4>
-    <p class="card-description">
-        Basic form layout
-    </p>
-    <form class="forms-sample">
-        <div class="form-group">
-            <label for="exampleInputUsername1">Username</label>
-            <input type="text" class="form-control" id="exampleInputUsername1" placeholder="Username">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputEmail1">Email address</label>
-            <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputPassword1">Password</label>
-            <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
-        </div>
-        <div class="form-group">
-            <label for="exampleInputConfirmPassword1">Confirm Password</label>
-            <input type="password" class="form-control" id="exampleInputConfirmPassword1" placeholder="Password">
-        </div>
-        <div class="form-check form-check-flat form-check-primary">
-            <label class="form-check-label">
-                <input type="checkbox" class="form-check-input">
-                Remember me
-                <i class="input-helper"></i>
-            </label>
-        </div>
-        <button type="submit" class="btn btn-primary me-2">Submit</button>
-        <button class="btn btn-light">Cancel</button>
-    </form>
-</div>

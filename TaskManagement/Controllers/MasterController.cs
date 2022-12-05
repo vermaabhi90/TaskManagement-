@@ -203,7 +203,11 @@ namespace TaskManagement.Controllers
             {
                 Model = BLObj.GetSelectedTaskDetails(TaskId);
                 if (Model.TaskId == 0)
+                {
                     Model.isActive = true;
+                    Model.TaskDate = DateTime.Now;
+                }
+                   
             }   
             catch (Exception ex)
             {

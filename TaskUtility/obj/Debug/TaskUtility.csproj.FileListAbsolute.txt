@@ -14,3 +14,8 @@ D:\Skylish Group\TaskManagement-\TaskUtility\bin\Debug\TaskUtility.pdb
 D:\Skylish Group\TaskManagement-\TaskUtility\obj\Debug\TaskUtility.csproj.CoreCompileInputs.cache
 D:\Skylish Group\TaskManagement-\TaskUtility\obj\Debug\TaskUtility.dll
 D:\Skylish Group\TaskManagement-\TaskUtility\obj\Debug\TaskUtility.pdb
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\TaskUtility\bin\Debug\TaskUtility.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\TaskUtility\bin\Debug\TaskUtility.pdb
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\TaskUtility\obj\Debug\TaskUtility.csprojResolveAssemblyReference.cache
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\TaskUtility\obj\Debug\TaskUtility.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\TaskUtility\obj\Debug\TaskUtility.pdb

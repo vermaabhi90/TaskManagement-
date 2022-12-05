@@ -14,3 +14,10 @@ D:\Skylish Group\TaskManagement-\DAL\obj\Debug\DAL.csproj.CoreCompileInputs.cach
 D:\Skylish Group\TaskManagement-\DAL\obj\Debug\DAL.csproj.CopyComplete
 D:\Skylish Group\TaskManagement-\DAL\obj\Debug\DAL.dll
 D:\Skylish Group\TaskManagement-\DAL\obj\Debug\DAL.pdb
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\DAL\bin\Debug\DAL.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\DAL\bin\Debug\DAL.pdb
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\DAL\bin\Debug\TaskUtility.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\DAL\bin\Debug\TaskUtility.pdb
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\DAL\obj\Debug\DAL.csprojResolveAssemblyReference.cache
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\DAL\obj\Debug\DAL.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\DAL\obj\Debug\DAL.pdb
