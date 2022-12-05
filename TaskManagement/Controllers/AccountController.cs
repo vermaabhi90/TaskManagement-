@@ -61,21 +61,19 @@ namespace TaskManagement.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-
         //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
         [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
+        public async Task<ActionResult> Login(FormCollection fc, string returnUrl)
         {
             TaskBL ObjBL = new TaskBL();
-
-            if (!ModelState.IsValid)
-            {
-                return View(model);
-            }
-            int errorcode = ObjBL.VerifyOTP(model.EmpId, model.Email, model.OTP);
+            LoginViewModel model = new LoginViewModel();
+            model.EmpId = Convert.ToInt32(fc["EmpId"]);
+            model.Password =fc["password"].ToString();
+            model.Email= fc["Email"].ToString();
+            int errorcode = 500000;
             // This doesn't count login failures towards account lockout
             // To enable password failures to trigger account lockout, change to shouldLockout: true
             var result = await SignInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, shouldLockout: false); 

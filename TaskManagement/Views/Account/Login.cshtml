@@ -4,11 +4,11 @@
     ViewBag.Title = "Log in";
 }
 
-<h2>@ViewBag.Title.</h2>
+@*<h2>@ViewBag.Title.</h2>
 <div class="row">
     <div class="col-md-8">
         <section id="loginForm">
-            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+            @using (Html.BeginForm("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl }, FormMethod.Post, new { @class = "form-horizontal",@id="LoginForm", role = "form" }))
             {
                 @Html.AntiForgeryToken()
                 <h5>Use a local account to log in.</h5>
@@ -45,7 +45,7 @@
                    
                     <div class="form-group" id="LogInBtnSection" hidden>
                         <div class="col-md-offset-2 col-md-10">
-                            <input type="submit" value="Log in" id="LogInBtn" onclick="CallLogIn()" class="btn btn-default" />
+                            <input type="button" value="Log in" id="LogInBtn" onclick="CallLogIn()" class="btn btn-success" />
                             
                         </div>
                     </div>
@@ -57,18 +57,6 @@
                         </div>
                     </div>
                 </div>
-                @*<div class="form-group">
-                    <div class="col-md-offset-2 col-md-10">
-                        <input type="submit" value="Log in" class="btn btn-default" />
-                    </div>
-                </div>*@
-                @*<p>
-                    @Html.ActionLink("Register as a new user", "Register")
-                </p>*@
-                @* Enable this once you have account confirmation enabled for password reset functionality
-                    <p>
-                        @Html.ActionLink("Forgot your password?", "ForgotPassword")
-                    </p>*@
             }
         </section>
     </div>
@@ -77,7 +65,48 @@
             @Html.Partial("_ExternalLoginsListPartial", new ExternalLoginListViewModel { ReturnUrl = ViewBag.ReturnUrl })
         </section>
     </div>
+</div>*@
+
+<div class="container-scroller">
+    <div class="full-page-wrapper">
+        <div class="content-wrapper d-flex align-items-center auth px-0">
+            <div class="row w-100 mx-0">
+                <div class="col-lg-4 mx-auto">
+                    <div class="auth-form-light text-left py-5 px-4 px-sm-5">
+                        <div class="brand-logo">
+                            <img src="/Template/images/logo.svg" alt="logo">
+                        </div>
+                        <form id="LoginForm" class="smart-form" novalidate="novalidate" action="@Url.Action("Login", "Account", new { ReturnUrl = ViewBag.ReturnUrl })" method="post">
+                            @Html.AntiForgeryToken()
+                            <input type="hidden" id="EmpId" name="EmpId" />
+                            <input type="hidden" id="Password" name="Password" />
+
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" id="Email" name="Email" placeholder="User Name">
+                            </div>
+
+                            <div class="mt-3">
+                                <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" id="SendOTPBtn" onclick="SendOTP();">Get OTP</a>
+                            </div>
+
+
+                            <div class="form-group" id="OTPSection" hidden>
+                                <input type="text" class="form-control form-control-lg" id="OTP" placeholder="OTP" name="OTP">
+                            </div>
+                            <div class="mt-3" id="LogInBtnSection" hidden>
+                                <a class="btn btn-block btn-primary btn-lg font-weight-medium auth-form-btn" id="LogInBtn" onclick="CallLogIn()">SIGN IN</a>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- content-wrapper ends -->
+    </div>
 </div>
+
+
+
 
 <script>
     function SendOTP()
@@ -86,12 +115,7 @@
         var RegisterUsername = $("#Email").val();
 
         if (RegisterUsername.toString() == "") {
-            $.smallBox({
-                title: "Please enter valid Email/Mobile number",
-                color: "orange",
-                timeout: 5000
-            });
-            $('#Email').css('background-color', '#FF9999');
+            alert("Please enter valid Email/Mobile number")
             return false;
         }
 
@@ -104,12 +128,15 @@
 
                 $("#EmpId").val(result);
                
-                if(result > 0)
-                {
+                if (result > 0) {
                     $("#EmpId").val(result);
-                    $("#OTPSection").attr('hidden',false);
-                    $("#LogInBtnSection").attr('hidden',false);
+                    $("#OTPSection").attr('hidden', false);
+                    $("#LogInBtnSection").attr('hidden', false);
                     $("#SendOTPBtn").hide();
+                }
+                else {
+                    alert("Invalid UserName!")
+                    $("#Email").val("");
                 }
             }
 
@@ -120,12 +147,32 @@
 </script>
 
 <script>
-       function CallLogIn()
-    {
-        var EmpId = $("#EmpId").val();
-         var RegisterUsername = $("#Email").val();
-        $("#Password").val('Asd@123');
+    function CallLogIn() {
+        var OTP   = $('#OTP').val();
+        var EmpId = $('#EmpId').val();
+        var Email = $('#Email').val();
+        $.ajax({
+            type: 'POST',
+            url: "/Master/VerifyOTP", // we are calling json method
+            dataType: 'json',
+            data: { OTP: OTP, EmpId: EmpId, Email: Email },
+            success: function (errorcode) {
+                if (errorcode == 500000) {
+                    $("#Password").val('Asd@123');
+                    $('#LoginForm').submit();
+                }
+                else {
 
+                    alert("Invalid OTP !")
+                    $('#OTP').val("");
+                }
+
+            }
+        });
+
+
+
+       
     }
 </script>
 

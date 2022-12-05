@@ -171,6 +171,12 @@ namespace TaskManagement.Controllers
             }
             return Json(Errorcode, JsonRequestBehavior.AllowGet);
         }
+        public ActionResult VerifyOTP(string OTP, int EmpId, string Email)
+        {
+            TaskBL ObjBL = new TaskBL();
+            int errorcode = ObjBL.VerifyOTP(EmpId, Email, OTP);
+            return Json(errorcode, JsonRequestBehavior.AllowGet);
+        }
         #endregion Send LogIn OTP 
 
         #region Task Master
