@@ -50,6 +50,139 @@
             <label>cc Mail</label>
             <input type="text" class="form-control" id="ccMail" name="ccMail" placeholder="cc Mail" value="@Model.ccMail" readonly>
         </div>
+      
+        <div class="form-group">
+            @Html.LabelFor(model => model.AssignedToEmpId, htmlAttributes: new { @class = "form - control" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.AssignedToEmpId, (IEnumerable<SelectListItem>)ViewBag.EmpList, null, new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FrequencyType, htmlAttributes: new { @class = "form - control" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.FrequencyType, new SelectList(new List<Object>
+                {
+                new { value = "Daily"  , text = "Daily"  },
+                new { value = "Weekly" , text = "Weekly" },
+                new { value = "Monthly" , text = "Monthly"},
+                 new { value = "Yearly" , text = "Yearly"}
+                },
+                "value",
+                "text",
+                Model.FrequencyType
+                ), new { @onchange = "callChangefunc()" }
+                )
+            </div>
+        </div>
+
+        <div class="row" id="WeekOption">
+            <section class="col col-1">
+                <label class="label">Monday</label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Monday)
+                    @Html.ValidationMessageFor(model => model.Monday, "", new { @class = "text-danger" })
+                </div>
+            </section>
+            <section class="col col-1">
+                <label class="label">Tuesday</label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Tuesday)
+                    @Html.ValidationMessageFor(model => model.Tuesday, "", new { @class = "text-danger" })
+                </div>
+            </section>
+            <section class="col col-1">
+                <label class="label">Wednesday</label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Wednesday)
+                    @Html.ValidationMessageFor(model => model.Wednesday, "", new { @class = "text-danger" })
+                </div>
+            </section>
+            <section class="col col-1">
+                <label class="label">Thursday</label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Thursday)
+                    @Html.ValidationMessageFor(model => model.Thursday, "", new { @class = "text-danger" })
+                </div>
+            </section>
+            <section class="col col-1">
+                <label class="label">Friday&nbsp;&nbsp;&nbsp;</label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Friday)
+                    @Html.ValidationMessageFor(model => model.Friday, "", new { @class = "text-danger" })
+                </div>
+            </section>
+            <section class="col col-1">
+                <label class="label">Saturday</label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Saturday)
+                    @Html.ValidationMessageFor(model => model.Saturday, "", new { @class = "text-danger" })
+                </div>
+            </section>
+            <section class="col col-1">
+                <label class="label">Sunday</label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Sunday)
+                    @Html.ValidationMessageFor(model => model.Sunday, "", new { @class = "text-danger" })
+                </div>
+            </section>
+        </div>
+
+        <div class="row">
+            <section class="col col-2" id="monthlyoption">
+                <label class="label">Nth Day</label>
+                <label class="input">
+                    <input type="number" name="NthDay" id="NthDay" value="@Model.NthDay">
+                </label>
+            </section> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <section class="col col-2" id="WeekD">
+                <label class="label">Day&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                @Html.DropDownListFor(model => model.WeekDay, new SelectList(new List<Object>
+                {
+                new { value = "0"  , text = "Day"  },
+                new { value = "1" , text = "Monday" },
+                new { value = "2" , text = "TuesDay"},
+                 new { value = "3" , text = "Wednesday"},
+                 new { value = "4" , text = "Thursday" },
+                new { value = "5" , text = "Friday"},
+                 new { value = "6" , text = "Sunday"}
+                },
+                "value",
+                "text",
+                Model.WeekDay
+                )
+                )
+            </section>
+            <section class="col col-2" id="Month">
+                <label class="label">Month</label>
+                @Html.DropDownListFor(model => model.MonthNo, new SelectList(new List<Object>
+                {
+                new { value = "0"  , text = "Please Select Month"  },
+                new { value = "1" , text = "Jaunary" },
+                new { value = "2" , text = "February"},
+                 new { value = "3" , text = "March"},
+                 new { value = "4" , text = "April" },
+                new { value = "5" , text = "May"},
+                 new { value = "6" , text = "June"},
+                 new { value = "7" , text = "July" },
+                new { value = "8" , text = "August"},
+                 new { value = "9" , text = "September"},
+                 new { value = "10" , text = "October" },
+                new { value = "11" , text = "November"},
+                 new { value = "12" , text = "December"}
+                },
+                "value",
+                "text",
+                Model.MonthNo
+                )
+                )
+
+            </section>
+
+        </div>
+
+
         <div class="form-group">
             @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-5">
@@ -66,7 +199,6 @@
                 @Html.ValidationMessageFor(model => model.ccMail, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             <div class="col-md-offset-2 col-md-5">
                 <input type="submit" value="Approve" class="btn btn-success" onclick="SetStatus('3')" />
@@ -79,6 +211,72 @@
 
     </div>
 }
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script>
+
+    $(document).ready(function () {
+       $("#AssignedToEmpId").val(@Model.AssignedToEmpId);
+     if('@Model.FrequencyType' == "Daily")
+        {
+                $("#WeekOption").hide();
+                $("#monthlyoption").hide();
+                $("#WeekD").hide();
+                $("#Month").hide();
+        }
+       if('@Model.FrequencyType' == "Weekly")
+        {
+
+                $("#WeekOption").show();
+                $("#monthlyoption").hide();
+                $("#WeekD").hide();
+                $("#Month").hide();
+                $("#WeekOption").show();
+            var Weeks = '@Model.WeekDays';
+
+            if (Weeks == "") {
+                Weeks = "0000000";
+            }
+            if (Weeks[0] == "1") {
+                $('#Monday').attr('Checked', 'Checked');
+            }
+            if (Weeks[1] == "1") {
+                $('#Tuesday').attr('Checked', 'Checked');
+            }
+            if (Weeks[2] == "1") {
+                $('#Wednesday').attr('Checked', 'Checked');
+            }
+            if (Weeks[3] == "1") {
+                $('#Thursday').attr('Checked', 'Checked');
+            }
+            if (Weeks[4] == "1") {
+                $('#Friday').attr('Checked', 'Checked');
+            }
+            if (Weeks[5] == "1") {
+                $('#Saturday').attr('Checked', 'Checked');
+            }
+            if (Weeks[6] == "1") {
+                $('#Sunday').attr('Checked', 'Checked');
+            }
+        }
+        if('@Model.FrequencyType' == "Monthly")
+        {
+                $("#WeekOption").hide();
+                $("#Month").hide();
+                $("#monthlyoption").show();
+                $("#WeekD").show();
+        }
+         if('@Model.FrequencyType' == "Yearly")
+        {
+                $("#WeekOption").hide();
+                  $("#Month").show();
+                $("#monthlyoption").show();
+                $("#WeekD").show();
+        }
+    })
+</script>
+
+
 <script>
     function SetStatus(Status)
     {

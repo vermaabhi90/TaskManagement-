@@ -65,6 +65,7 @@ namespace BL
                         Model.CreatedDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["CreatedDate"].ToString());
                         Model.ModifiedBy = ds.Tables[0].Rows[0]["ModifiedBy"].ToString();
                         Model.ModifiedDate = Convert.ToDateTime(ds.Tables[0].Rows[0]["ModifiedDate"].ToString());
+                        Model.Role = ds.Tables[0].Rows[0]["Role"].ToString();
                     }
 
                 }
@@ -92,6 +93,7 @@ namespace BL
                         dr["PhoneNo"] = Model.PhoneNo;
                         dr["isActive"] = Model.isActive;
                         dr["gender"] = Model.gender;
+                        dr["Role"] = Model.Role;
                         return DALObj.SaveEmployeeDetails(dr, UserId, out EmpId);
                     }
                 }
@@ -224,7 +226,13 @@ namespace BL
                         Model.ApprovedBy = ds.Tables[0].Rows[0]["ApprovedBy"].ToString();
                         Model.ApprovedDate = ds.Tables[0].Rows[0]["ApprovedDate"].ToString();
                         Model.Remark = ds.Tables[0].Rows[0]["ApproverRemark"].ToString();
-
+                        Model.FrequencyType = ds.Tables[0].Rows[0]["FrequencyType"].ToString();
+                        Model.WeekDays = ds.Tables[0].Rows[0]["WeekDays"].ToString();
+                        Model.WeekNo = Convert.ToInt32(ds.Tables[0].Rows[0]["WeekNo"].ToString());
+                        Model.MonthNo = Convert.ToInt32(ds.Tables[0].Rows[0]["MonthNo"].ToString());
+                        Model.WeekDay = Convert.ToInt32(ds.Tables[0].Rows[0]["WeekDays"].ToString());
+                        Model.AssignedToEmpId = Convert.ToInt32(ds.Tables[0].Rows[0]["AssignedToEmpId"].ToString());
+                        Model.NthDay = Convert.ToInt32(ds.Tables[0].Rows[0]["NthDay"].ToString());
                     }
 
                 }
@@ -238,6 +246,7 @@ namespace BL
             int errorcode = 0;
             try
             {
+                if (Model.WeekDays == null) { Model.WeekDays = "0000000"; }
                 ds = DALObj.GetSelectedTaskDetails(0);
                 if (ds != null)
                 {
@@ -252,6 +261,12 @@ namespace BL
                         dr["StatusId"] = Model.StatusId;
                         dr["isActive"] = Model.isActive;
                         dr["ccMail"] = Model.ccMail;
+                        dr["FrequencyType"] = Model.FrequencyType;
+                        dr["WeekDays"] = Model.WeekDays;
+                        dr["WeekNo"] = Model.WeekNo;
+                        dr["MonthNo"] = Model.MonthNo;
+                        dr["NthDay"] = Model.NthDay;
+                        dr["AssignedToEmpId"] = Model.AssignedToEmpId;
                         return DALObj.SaveTaskDetails(dr, UserId, out TaskId);
                     }
                 }
@@ -300,6 +315,26 @@ namespace BL
             }
             return Errorcode;
         }
-        #endregion Task Master
-    }
+        public List<EmployeeDrpDwnModel> GetEmpDrpDwnList(int TaskId)
+        {
+            List<EmployeeDrpDwnModel> Lst = new List<EmployeeDrpDwnModel>();
+            DataSet ds = DALObj.GetEmpDrpDwnList(TaskId);
+            if (ds != null)
+            {
+                if (ds.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        EmployeeDrpDwnModel Model = new EmployeeDrpDwnModel();
+                        Model.EmpId = Convert.ToInt32(dr["EmpId"].ToString());
+                        Model.Employee = dr["Employee"].ToString();
+                        Lst.Add(Model);
+                    }
+                }
+            }
+            return Lst;
+        }
+
+                        #endregion Task Master
+                    }
 }

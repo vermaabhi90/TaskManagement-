@@ -88,6 +88,9 @@ namespace DAL
                 parameters[8].Value = 0;
                 parameters[8].Direction = ParameterDirection.InputOutput;
 
+                parameters[9] = new SqlParameter("@Role", SqlDbType.VarChar);
+                parameters[9].Value = dr["Role"];
+
                 SqlHelper.ExecuteDataset(Common.SqlConnectionString, CommandType.StoredProcedure, "sp_SaveEmployeeDetails", parameters);
                 if (parameters[8].Value != null)
                     errCode = Convert.ToInt32(parameters[8].Value.ToString());
@@ -298,7 +301,7 @@ namespace DAL
             TaskId = 0;
             try
             {
-                SqlParameter[] parameters = new SqlParameter[10];
+                SqlParameter[] parameters = new SqlParameter[15];
 
                 parameters[0] = new SqlParameter("@TaskId", SqlDbType.Int);
                 parameters[0].Value = dr["TaskId"];
@@ -328,6 +331,24 @@ namespace DAL
                 parameters[8] = new SqlParameter("@ErrorCode", SqlDbType.Int);
                 parameters[8].Value = 0;
                 parameters[8].Direction = ParameterDirection.InputOutput;
+
+                parameters[9] = new SqlParameter("@FrequencyType", SqlDbType.Char);
+                parameters[9].Value = dr["FrequencyType"];
+
+                parameters[10] = new SqlParameter("@WeekDays", SqlDbType.VarChar);
+                parameters[10].Value = dr["WeekDays"];
+
+                parameters[11] = new SqlParameter("@WeekNo", SqlDbType.Int);
+                parameters[11].Value = dr["WeekNo"];
+
+                parameters[12] = new SqlParameter("@MonthNo", SqlDbType.Int);
+                parameters[12].Value = dr["MonthNo"];
+
+                parameters[13] = new SqlParameter("@NthDay", SqlDbType.Int);
+                parameters[13].Value = dr["NthDay"];
+
+                parameters[14] = new SqlParameter("@AssignedToEmpId", SqlDbType.Int);
+                parameters[14].Value = dr["AssignedToEmpId"];
 
                 SqlHelper.ExecuteDataset(Common.SqlConnectionString, CommandType.StoredProcedure, "sp_SaveTaskDetails", parameters);
                 if (parameters[8].Value != null)
@@ -393,6 +414,22 @@ namespace DAL
             return errCode;
         }
 
+        public DataSet GetEmpDrpDwnList(int TaskId)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                SqlParameter[] parameters = new SqlParameter[1];
+                parameters[0] = new SqlParameter("@TaskId", SqlDbType.Int);
+                parameters[0].Value = TaskId;
+                ds = SqlHelper.ExecuteDataset(Common.SqlConnectionString, CommandType.StoredProcedure, "sp_GetEmpDrpDwnList", parameters);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ds;
+        }
         #endregion Task Master
     }
 }

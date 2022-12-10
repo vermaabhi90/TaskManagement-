@@ -69,6 +69,7 @@ namespace TaskManagement.Controllers
                 Model.EmailId = obj.EmailId;
                 Model.PhoneNo = obj.PhoneNo;
                 Model.isActive = obj.isActive;
+                Model.Role = obj.Role;
                 Errorcode = BLObj.SaveEmployeeDetails(Model, out EmpId, UserId);
                 Model.EmpId = EmpId;
             }
@@ -207,7 +208,10 @@ namespace TaskManagement.Controllers
                     Model.isActive = true;
                     Model.TaskDate = DateTime.Now;
                 }
-                   
+                List<EmployeeDrpDwnModel> EmpList = new List<EmployeeDrpDwnModel>();
+                EmpList = BLObj.GetEmpDrpDwnList(TaskId);
+                ViewBag.EmpList = new SelectList(EmpList, "EmpId", "Employee");
+
             }   
             catch (Exception ex)
             {
@@ -233,6 +237,149 @@ namespace TaskManagement.Controllers
                 Model.ccMail = obj.ccMail;
                 Model.StatusId = obj.StatusId;
                 Model.isActive = obj.isActive;
+                Model.AssignedToEmpId = obj.AssignedToEmpId;
+                Model.FrequencyType = obj.FrequencyType;
+                switch (Model.FrequencyType)
+                {
+                    case "Daily":
+                        {                           
+                            Model.WeekDays = "0000000";
+                            break;
+                        }
+
+                    case "Weekly":
+                        {
+                            System.Text.StringBuilder strFrequency = new System.Text.StringBuilder("");
+                            Model.WeekDays = strFrequency.ToString();
+                            if (obj.Monday) { strFrequency.Append("1"); } else { strFrequency.Append("0"); }
+                            if (obj.Tuesday) { strFrequency.Append("1"); } else { strFrequency.Append("0"); }
+                            if (obj.Wednesday) { strFrequency.Append("1"); } else { strFrequency.Append("0"); }
+                            if (obj.Thursday) { strFrequency.Append("1"); } else { strFrequency.Append("0"); }
+                            if (obj.Friday) { strFrequency.Append("1"); } else { strFrequency.Append("0"); }
+                            if (obj.Saturday) { strFrequency.Append("1"); } else { strFrequency.Append("0"); }
+                            if (obj.Sunday) { strFrequency.Append("1"); } else { strFrequency.Append("0"); }
+                            if (strFrequency.ToString() == null)
+                            {
+                                Model.WeekDays = "0000000";
+                            }
+                            else
+                            {
+                                Model.WeekDays = strFrequency.ToString();
+                            }
+
+                            break;
+                        }
+                    case "Monthly":
+                        {
+                           
+                            Model.NthDay = obj.NthDay;
+                            switch (Model.WeekDay)
+                            {
+                                case 1:
+                                    {
+                                        Model.WeekDays = "1000000";
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        Model.WeekDays = "0100000";
+                                        break;
+                                    }
+                                case 3:
+                                    {
+                                        Model.WeekDays = "0010000";
+                                        break;
+                                    }
+                                case 4:
+                                    {
+                                        Model.WeekDays = "0001000";
+                                        break;
+                                    }
+                                case 5:
+                                    {
+                                        Model.WeekDays = "0000100";
+                                        break;
+                                    }
+                                case 6:
+                                    {
+                                        Model.WeekDays = "0000010";
+                                        break;
+                                    }
+                                case 7:
+                                    {
+                                        Model.WeekDays = "0000001";
+                                        break;
+                                    }
+                                case 8:
+                                    {
+                                        Model.WeekDays = "0000000";
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        Model.WeekDays = "0000000";
+                                        break;
+                                    }
+                            }
+                            break;
+                        }
+                    case "Yearly":
+                        {
+                           
+                            Model.NthDay = obj.NthDay;
+                            switch (Model.WeekDay)
+                            {
+                                case 1:
+                                    {
+                                        Model.WeekDays = "1000000";
+                                        break;
+                                    }
+                                case 2:
+                                    {
+                                        Model.WeekDays = "0100000";
+                                        break;
+                                    }
+                                case 3:
+                                    {
+                                        Model.WeekDays = "0010000";
+                                        break;
+                                    }
+                                case 4:
+                                    {
+                                        Model.WeekDays = "0001000";
+                                        break;
+                                    }
+                                case 5:
+                                    {
+                                        Model.WeekDays = "0000100";
+                                        break;
+                                    }
+                                case 6:
+                                    {
+                                        Model.WeekDays = "0000010";
+                                        break;
+                                    }
+                                case 7:
+                                    {
+                                        Model.WeekDays = "0000001";
+                                        break;
+                                    }
+                                case 8:
+                                    {
+                                        Model.WeekDays = "0000000";
+                                        break;
+                                    }
+                                default:
+                                    {
+                                        Model.WeekDays = "0000000";
+                                        break;
+                                    }
+                            }
+                            Model.MonthNo =obj.MonthNo;
+                            break;
+                        }
+
+                }
                 Errorcode = BLObj.SaveTaskDetails(Model, out TaskId, UserId);
                 Model.TaskId = TaskId;
             }
@@ -264,7 +411,10 @@ namespace TaskManagement.Controllers
             try
             {
                 Model = BLObj.GetSelectedTaskDetails(TaskId);
-                
+                List<EmployeeDrpDwnModel> EmpList = new List<EmployeeDrpDwnModel>();
+                EmpList = BLObj.GetEmpDrpDwnList(TaskId);
+                ViewBag.EmpList = new SelectList(EmpList, "EmpId", "Employee");
+
             }
             catch (Exception ex)
             {

@@ -38,6 +38,9 @@ namespace BL
         public DateTime CreatedDate { get; set; }
         public string ModifiedBy { get; set; }
         public DateTime ModifiedDate { get; set; }
+        [Required]
+        [DisplayName("Role")]
+        public string Role { get; set; }
 
     }
     #endregion Employee
@@ -103,7 +106,38 @@ namespace BL
         [Required]
         [DisplayName("Approval Remark")]
         public string Remark { get; set; }
+
+
+        [Required]
+        [DisplayName("Assigned To Employee")]
+        public int AssignedToEmpId { get; set; }
+
+        [Required]
+        [DisplayName("Frequency")]
+        public string FrequencyType { get; set; }
+        public string WeekDays { get; set; }
+        public int WeekNo { get; set; }
+        public int MonthNo { get; set; }
+        public int WeekDay { get; set; }
+        public int NthDay { get; set; }
+        public Boolean Monday { get; set; }
+        public Boolean Tuesday { get; set; }
+        public Boolean Wednesday { get; set; }
+        public Boolean Thursday { get; set; }
+        public Boolean Friday { get; set; }
+        public Boolean Saturday { get; set; }
+        public Boolean Sunday { get; set; }
+
     }
 
-    #endregion Task Master
-}
+
+    public class EmployeeDrpDwnModel
+    {
+            public int EmpId { get; set; }
+            public string Employee { get; set; }
+    }
+
+
+
+        #endregion Task Master
+    }
