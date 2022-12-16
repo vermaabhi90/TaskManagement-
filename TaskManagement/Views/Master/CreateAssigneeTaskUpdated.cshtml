@@ -1,0 +1,458 @@
+﻿@model BL.TaskModel
+
+@{
+    ViewBag.Title = "CreateAssigneeTaskUpdated";
+}
+
+
+<h2>Pending Approval Task Details</h2>
+
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-horizontal">
+        @if (Model.TaskId > 0)
+        {
+            <span class="label label-success" style="margin-left:15px;font:bold;color:limegreen"> Status : @Model.Status</span>
+           <br />
+           <br />
+            <div class="form-group" >
+                <div class="col-md-offset-2 col-md-5">
+                    <a class="btn btn-warning" href="@Url.Action("GetAssigneeTaskList","Master")">Back to List</a>
+                </div>
+            </div>
+        }
+        <hr />
+        @Html.HiddenFor(x => x.StatusId, new { id = "StatusId" })
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group" hidden>
+            @Html.LabelFor(model => model.TaskId, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TaskId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TaskId, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label>Task Name</label>
+            <input type="text" class="form-control" id="TaskName" name="TaskName" placeholder="Task Name" value="@Model.TaskName" readonly>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TaskDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-5">
+                @*<input type="date" id="TaskDate" name="TaskDate" value="@Model.TaskDate.ToString("dd-mm-yyyy")" min="0">*@
+                <input type="date" name="TaskDate" id="TaskDate" value="@Model.TaskDate.ToString("yyyy-MM-dd")" placeholder="Select a date" class="form-control datepicker" data-dateformat="yyyy-MM-dd" readonly>
+                @Html.ValidationMessageFor(model => model.TaskDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="exampleTextarea1">Task Description</label>
+            <textarea class="form-control" id="TaskDescription" name="TaskDescription" rows="10" cols="5" placeholder="Description" readonly>@Model.TaskDescription</textarea>
+        </div>
+        <div class="form-group">
+            <label>cc Mail</label>
+            <input type="text" class="form-control" id="ccMail" name="ccMail" placeholder="cc Mail" value="@Model.ccMail" readonly>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.AssignedToEmpId, htmlAttributes: new { @class = "form - control" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.AssignedToEmpId, (IEnumerable<SelectListItem>)ViewBag.EmpList, null, new { @class = "form-control" })
+
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.FrequencyType, htmlAttributes: new { @class = "form - control" })
+            <div class="col-md-10">
+                @Html.DropDownListFor(model => model.FrequencyType, new SelectList(new List<Object>
+                {
+                new { value = "Daily"  , text = "Daily"  },
+                new { value = "Weekly" , text = "Weekly" },
+                new { value = "Monthly" , text = "Monthly"},
+                 new { value = "Yearly" , text = "Yearly"}
+                },
+                "value",
+                "text",
+                Model.FrequencyType
+                ), new { @onchange = "callChangefunc()" }
+                )
+            </div>
+        </div>
+
+        <div class="row" id="WeekOption">
+            <section class="col col-1">
+                <label class="label">Monday</label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Monday)
+                    @Html.ValidationMessageFor(model => model.Monday, "", new { @class = "text-danger" })
+                </div>
+            </section>
+            <section class="col col-1">
+                <label class="label">Tuesday</label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Tuesday)
+                    @Html.ValidationMessageFor(model => model.Tuesday, "", new { @class = "text-danger" })
+                </div>
+            </section>
+            <section class="col col-1">
+                <label class="label">Wednesday</label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Wednesday)
+                    @Html.ValidationMessageFor(model => model.Wednesday, "", new { @class = "text-danger" })
+                </div>
+            </section>
+            <section class="col col-1">
+                <label class="label">Thursday</label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Thursday)
+                    @Html.ValidationMessageFor(model => model.Thursday, "", new { @class = "text-danger" })
+                </div>
+            </section>
+            <section class="col col-1">
+                <label class="label">Friday&nbsp;&nbsp;&nbsp;</label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Friday)
+                    @Html.ValidationMessageFor(model => model.Friday, "", new { @class = "text-danger" })
+                </div>
+            </section>
+            <section class="col col-1">
+                <label class="label">Saturday</label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Saturday)
+                    @Html.ValidationMessageFor(model => model.Saturday, "", new { @class = "text-danger" })
+                </div>
+            </section>
+            <section class="col col-1">
+                <label class="label">Sunday</label>
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.Sunday)
+                    @Html.ValidationMessageFor(model => model.Sunday, "", new { @class = "text-danger" })
+                </div>
+            </section>
+        </div>
+
+        <div class="row">
+            <section class="col col-2" id="monthlyoption">
+                <label class="label">Nth Day</label>
+                <label class="input">
+                    <input type="number" name="NthDay" id="NthDay" value="@Model.NthDay">
+                </label>
+            </section> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <section class="col col-2" id="WeekD">
+                <label class="label">Day&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</label>
+                @Html.DropDownListFor(model => model.WeekDay, new SelectList(new List<Object>
+                {
+                new { value = "0"  , text = "Day"  },
+                new { value = "1" , text = "Monday" },
+                new { value = "2" , text = "TuesDay"},
+                 new { value = "3" , text = "Wednesday"},
+                 new { value = "4" , text = "Thursday" },
+                new { value = "5" , text = "Friday"},
+                 new { value = "6" , text = "Sunday"}
+                },
+                "value",
+                "text",
+                Model.WeekDay
+                )
+                )
+            </section>
+            <section class="col col-2" id="Month">
+                <label class="label">Month</label>
+                @Html.DropDownListFor(model => model.MonthNo, new SelectList(new List<Object>
+                {
+                new { value = "0"  , text = "Please Select Month"  },
+                new { value = "1" , text = "Jaunary" },
+                new { value = "2" , text = "February"},
+                 new { value = "3" , text = "March"},
+                 new { value = "4" , text = "April" },
+                new { value = "5" , text = "May"},
+                 new { value = "6" , text = "June"},
+                 new { value = "7" , text = "July" },
+                new { value = "8" , text = "August"},
+                 new { value = "9" , text = "September"},
+                 new { value = "10" , text = "October" },
+                new { value = "11" , text = "November"},
+                 new { value = "12" , text = "December"}
+                },
+                "value",
+                "text",
+                Model.MonthNo
+                )
+                )
+
+            </section>
+
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.isActive, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-5">
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.isActive)
+                    @Html.ValidationMessageFor(model => model.isActive, "", new { @class = "text-danger" })
+                </div>
+            </div>
+        </div>
+       
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Approver</label>
+                        <div class="col-sm-9">
+                            <input type="text" value="@Model.ApprovedBy" class="form-control" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Date</label>
+                        <div class="col-sm-9">
+                            <input type="text" value="@Model.ApprovedDate" class="form-control" readonly />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">Remak</label>
+                        <div class="col-sm-9">
+                            <input type="text" value="@Model.Remark" class="form-control" readonly />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+  @if (Model.StatusId != 7)
+  {
+        <div class="row">
+        <div class="col-md-4">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Status</label>
+
+                @Html.DropDownListFor(model => model.AssigneeStatus, new SelectList(new List<Object>
+                {
+                new { value = "0"  , text = "Please Select Status"  },
+                new { value = "5" , text = "In Progess" },
+                new { value = "6" , text = "On Hold"},
+                 new { value = "7" , text = "Completed"}
+                },
+                "value",
+                "text",
+                Model.AssigneeStatus
+                )
+                )
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group row">
+                <label class="col-sm-3 col-form-label">Upload</label>
+                <div class="col-sm-9">
+                    <i class="icon-prepend glyphicon glyphicon-file"></i>
+                    <input type="file" id="File" class="file  btn-xs btn-info" name="uploadFile" />
+                </div>
+            </div>
+        </div>
+    </div>
+
+            <div class="row">
+                <div class="col-md-10">
+                    <div class="form-group row">
+                        <label class="col-sm-1 col-form-label">Remark</label>
+                        <div class="col-sm-9">
+                            <textarea class="form-control" name="AssigneeRemark" id="AssigneeRemark" rows="10" cols="4" maxlength="500"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-md-offset-2 col-md-5">
+                        <input type="button" value="Save" id="Addbtn" class="btn btn-success" />
+                    </div>
+                    @*<button type="button" class="btn btn-success" onclick="CallPartialView()">Save</button>*@
+                </div>
+            </div>             
+
+  }
+        <div class="table-responsive pt-3">
+            <table class="table table-bordered table-striped">
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Comment </th>
+                        <th>Download</th>
+                        <th>Commented By</th>
+                        <th>Commented date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model.CommentList)
+                    {
+                        <tr>
+                            <td>@item.Status</td>
+                            <td>@item.Remark</td>
+                            @if (item.Filename != "")
+                            {
+                                <td align="center">
+                                    @Html.ActionLink(" ", "DocDownload", new { TaskId = Model.TaskId, DocumentPath = item.Filename, CalledFrom = "Assignee" }, new { @class = "btn btn-warning btn-sm fa fa-folder-open", @style = "color:green" })
+                                </td>
+                            }
+                            else
+                            {
+                                <td></td>
+                            }
+                            <td>@item.CommentBy</td>
+                            <td>@item.CreatedDate</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+
+
+</div>
+}
+
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+<script>
+    $('#Addbtn').click(function(){
+
+     var AssigneeStatus = $("#AssigneeStatus").val();
+     var AssigneeRemark = $("#AssigneeRemark").val();
+     var File = $("#File").val();
+
+     if(AssigneeStatus == "0")
+    {
+        alert("Please select status of task");
+        return false;
+    }
+      if(AssigneeRemark == "")
+    {
+        alert("Please add remark");
+        return false;
+    }
+
+     $formData = new FormData();
+     if(window.FormData !== undefined) {
+
+            var fileUpload = $("#File").get(0);
+            var files = fileUpload.files;
+            for (var i = 0; i < files.length; i++) {
+                $formData.append(files[i].name, files[i]);
+         }
+            }
+
+            $formData.append('TaskId', '@Model.TaskId');
+            $formData.append('StatusId', '@Model.StatusId');
+            $formData.append('AssigneeStatus', AssigneeStatus);
+            $formData.append('AssigneeRemark', AssigneeRemark);
+
+
+            var path = '/Master/SaveAssigneeComments';
+            $.ajax({
+                type: 'POST',
+                url: path, // we are calling json method
+                dataType: 'json',
+                data: $formData,
+                processData: false,
+                contentType: false,
+                success: function (data) {
+                if (data == 500000) {
+
+                        location.reload();
+                    }
+                }
+            });
+
+})
+
+
+</script>
+
+<script>
+
+    $(document).ready(function () {
+       $("#AssignedToEmpId").val(@Model.AssignedToEmpId).attr("disabled","disabled");;
+       $("#FrequencyType").attr("disabled","disabled");
+       $("#MonthNo").attr("disabled","disabled");
+       $("#WeekDay").attr("disabled","disabled");
+       $("#NthDay").attr("disabled","disabled");
+       $(".check-box").attr("disabled","disabled");
+
+
+     if('@Model.FrequencyType' == "Daily")
+        {
+                $("#WeekOption").hide();
+                $("#monthlyoption").hide();
+                $("#WeekD").hide();
+                $("#Month").hide();
+        }
+       if('@Model.FrequencyType' == "Weekly")
+        {
+
+                $("#WeekOption").show();
+                $("#monthlyoption").hide();
+                $("#WeekD").hide();
+                $("#Month").hide();
+                $("#WeekOption").show();
+            var Weeks = '@Model.WeekDays';
+
+            if (Weeks == "") {
+                Weeks = "0000000";
+            }
+            if (Weeks[0] == "1") {
+                $('#Monday').attr('Checked', 'Checked');
+            }
+            if (Weeks[1] == "1") {
+                $('#Tuesday').attr('Checked', 'Checked');
+            }
+            if (Weeks[2] == "1") {
+                $('#Wednesday').attr('Checked', 'Checked');
+            }
+            if (Weeks[3] == "1") {
+                $('#Thursday').attr('Checked', 'Checked');
+            }
+            if (Weeks[4] == "1") {
+                $('#Friday').attr('Checked', 'Checked');
+            }
+            if (Weeks[5] == "1") {
+                $('#Saturday').attr('Checked', 'Checked');
+            }
+            if (Weeks[6] == "1") {
+                $('#Sunday').attr('Checked', 'Checked');
+            }
+        }
+        if('@Model.FrequencyType' == "Monthly")
+        {
+                $("#WeekOption").hide();
+                $("#Month").hide();
+                $("#monthlyoption").show();
+                $("#WeekD").show();
+        }
+         if('@Model.FrequencyType' == "Yearly")
+        {
+                $("#WeekOption").hide();
+                  $("#Month").show();
+                $("#monthlyoption").show();
+                $("#WeekD").show();
+        }
+    })
+</script>
+
+
+<script>
+    function SetStatus(Status)
+    {
+        $("#StatusId").val(Status);
+    }
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
