@@ -127,6 +127,9 @@ namespace BL
         public Boolean Friday { get; set; }
         public Boolean Saturday { get; set; }
         public Boolean Sunday { get; set; }
+        public List<AssigneeTaskLogModel> CommentList { get; set; }
+
+        public int AssigneeStatus { get; set; }
 
     }
 
@@ -137,7 +140,17 @@ namespace BL
             public string Employee { get; set; }
     }
 
-
+    public class AssigneeTaskLogModel
+    {
+        public string Remark { get; set; }
+        public string CommentBy { get; set; }
+        public string Status { get; set; }
+        public string CreatedDate { get; set; }
+        public int TaskId { get; set; }
+        public int FromStatusId { get; set; }
+        public int ToStatusId { get; set; }
+        public string Filename { get; set; }
+    }
 
         #endregion Task Master
     }

@@ -8,6 +8,7 @@ using static BL.TaskModel;
 using TaskManagement.Models;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.AspNet.Identity;
+using TaskUtility;
 
 namespace TaskManagement.Controllers
 {
@@ -200,6 +201,7 @@ namespace TaskManagement.Controllers
         public ActionResult CreateTask(int TaskId)
         {
             TaskModel Model = new TaskModel();
+            Model.CommentList = new List<AssigneeTaskLogModel>();
             try
             {
                 Model = BLObj.GetSelectedTaskDetails(TaskId);
@@ -212,6 +214,8 @@ namespace TaskManagement.Controllers
                 EmpList = BLObj.GetEmpDrpDwnList(TaskId);
                 ViewBag.EmpList = new SelectList(EmpList, "EmpId", "Employee");
 
+                Model.CommentList = BLObj.GetAssigneeTaskLogList(TaskId);
+
             }   
             catch (Exception ex)
             {
@@ -220,7 +224,6 @@ namespace TaskManagement.Controllers
             }
             return View(Model);
         }
-
         [HttpPost]
         public ActionResult CreateTask(TaskModel obj)
         {
@@ -445,5 +448,136 @@ namespace TaskManagement.Controllers
             return RedirectToAction("GetPendingApprovalTaskList");
         }
         #endregion Task Master
+
+        #region Assignee User Task Process
+
+        [Authorize]
+        public ActionResult GetAssigneeTaskList()
+        {
+            List<TaskModel> lstTask = new List<TaskModel>();
+            string UserId = User.Identity.GetUserId();
+            try
+            {
+                lstTask = BLObj.GetAssigneeTaskList(UserId);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return View(lstTask);
+        }
+
+        public ActionResult CreateAssigneeTaskUpdated(int TaskId)
+        {
+            TaskModel Model = new TaskModel();
+            Model.CommentList = new List<AssigneeTaskLogModel>();
+            try
+            {
+                Model = BLObj.GetSelectedTaskDetails(TaskId);
+                if (Model.TaskId == 0)
+                {
+                    Model.isActive = true;
+                    Model.TaskDate = DateTime.Now;
+                }
+                List<EmployeeDrpDwnModel> EmpList = new List<EmployeeDrpDwnModel>();
+                EmpList = BLObj.GetEmpDrpDwnList(TaskId);
+                ViewBag.EmpList = new SelectList(EmpList, "EmpId", "Employee");
+
+                Model.CommentList = BLObj.GetAssigneeTaskLogList(TaskId);
+
+            }
+            catch (Exception ex)
+            {
+
+                throw ex;
+            }
+            return View(Model);
+        }
+
+        public JsonResult SaveAssigneeComments()
+        {
+            AssigneeTaskLogModel Model = new AssigneeTaskLogModel();
+            string UserId = User.Identity.GetUserId();
+            int ErrCd = 5000;
+            try
+            {
+                var filename = "";
+                string[] a = Request.Form.GetValues(0);
+                string[] b = Request.Form.GetValues(1);
+                string[] c = Request.Form.GetValues(2);
+                string[] d = Request.Form.GetValues(3);
+                Model.TaskId = Convert.ToInt32(a[0]);
+                Model.FromStatusId = Convert.ToInt32(b[0]);
+                Model.ToStatusId = Convert.ToInt32(c[0]);
+                Model.Remark = d[0];
+                if (Request.Files.Count > 0)
+                {
+
+                    foreach (string files in Request.Files)
+                    {
+                        string ftpServer = Common.GetConfigValue("FTP");
+                        var file = Request.Files[files];
+                        filename = System.IO.Path.GetFileName(file.FileName);
+                        string[] str = filename.Split('.');
+                        string FName = "";
+                        if (str[0].Length > 30)
+                        {
+                            FName = str[0].ToString().Substring(0, 30);
+                        }
+                        else
+                        {
+                            FName = str[0].ToString();
+                        }
+                        string FileEx = str[1].ToString();
+                        String guid = Guid.NewGuid().ToString();
+                        string date = DateTime.Now.Day.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Year.ToString();
+                        string time = DateTime.Now.Hour.ToString() + DateTime.Now.Minute.ToString();
+                        string ClientCodeFile = "/TaskManagementDocs/";                      
+
+                        filename = Convert.ToString(ClientCodeFile + FName + "_" + date + "_" + time + "." + FileEx);
+                        string localPath = System.IO.Path.Combine(Server.MapPath("~//App_Data/uploads"), filename);
+                        file.SaveAs(localPath);
+                      
+                        //MasterBLObj.UploadScannedFnfDocFileName(ResignationId, ExitInterviewFileName, User_Id, Type, ConnString);
+                        int ErrCd1 = Common.UploadFileInFTP(filename, localPath, "TaskManagementDocs");
+                        file.InputStream.Dispose();
+                    }
+                }
+                  ErrCd = BLObj.UpdateAssigneeTaskStatusDetails(UserId, Model.TaskId, Model.FromStatusId, Model.ToStatusId, Model.Remark, filename);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return Json(ErrCd, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DocDownload(int TaskId, string DocumentPath,string CalledFrom)
+        {
+            try
+            {
+                byte[] OPData = Common.DownloadFileFromFTP(DocumentPath);
+                Response.AddHeader("content-disposition", "attachment; filename=" + DocumentPath);
+                Response.ContentType = "application/zip";
+                Response.BinaryWrite(OPData);
+                Response.End();
+                if(CalledFrom == "Assignee")
+                {
+                    return RedirectToAction("CreateAssigneeTaskUpdated", new { TaskId = TaskId });
+                }
+                else
+                {
+                    return RedirectToAction("CreateTask", new { TaskId = TaskId });
+                }
+               
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            //return RedirectToAction("CreateAssigneeTaskUpdated", new { TaskId = TaskId });
+        }
+
+        #endregion Assignee User Task Process
     }
 }

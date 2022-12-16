@@ -277,7 +277,6 @@ namespace BL
             }
             return errorcode;
         }
-
         public List<TaskModel> GetPendingApprovalTaskList(string UserId)
         {
             List<TaskModel> TaskLst = new List<TaskModel>();
@@ -335,6 +334,73 @@ namespace BL
             return Lst;
         }
 
-                        #endregion Task Master
+        #endregion Task Master
+
+
+        #region Assignee User Task Process
+        public List<TaskModel> GetAssigneeTaskList(string UserId)
+        {
+            List<TaskModel> TaskLst = new List<TaskModel>();
+            DataSet ds = DALObj.GetAssigneeTaskList(UserId);
+            if (ds != null)
+            {
+                if (ds.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        TaskModel Model = new TaskModel();
+                        Model.TaskId = Convert.ToInt32(dr["TaskId"].ToString());
+                        Model.TaskName = dr["TaskName"].ToString();
+                        Model.ActiveStr = dr["ActiveStr"].ToString();
+                        Model.Status = dr["Status"].ToString();
+                        Model.ModifiedBy = dr["ModifiedBy"].ToString();
+                        Model.ModifiedDate = dr["ModifiedDate"].ToString();
+                        Model.TaskDate = Convert.ToDateTime(dr["TaskDate"].ToString());
+                        TaskLst.Add(Model);
                     }
+                }
+            }
+            return TaskLst;
+        }
+        public List<AssigneeTaskLogModel> GetAssigneeTaskLogList(int TaskId)
+        {
+            List<AssigneeTaskLogModel> TaskLst = new List<AssigneeTaskLogModel>();
+            DataSet ds = DALObj.GetAssigneeTaskLogList(TaskId);
+            if (ds != null)
+            {
+                if (ds.Tables.Count > 0)
+                {
+                    foreach (DataRow dr in ds.Tables[0].Rows)
+                    {
+                        AssigneeTaskLogModel Model = new AssigneeTaskLogModel();
+                        Model.Status = dr["Status"].ToString();
+                        Model.Remark = dr["Remark"].ToString();
+                        Model.CommentBy = dr["CommentBy"].ToString();
+                        Model.CreatedDate = dr["CreatedDate"].ToString();
+                        Model.Filename = dr["Filename"].ToString();
+                        TaskLst.Add(Model);
+                    }
+                }
+            }
+            return TaskLst;
+        }
+        public int UpdateAssigneeTaskStatusDetails(string UserId, int TaskId, int FromStatusId, int ToStatusId, string Remark, string FileName)
+        {
+            int Errorcode = 0;
+            try
+            {
+                Errorcode = DALObj.UpdateAssigneeTaskStatusDetails(UserId, TaskId, FromStatusId, ToStatusId, Remark, FileName);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            return Errorcode;
+        }
+
+            #endregion Assignee User Task Process
+
+
+        }
 }

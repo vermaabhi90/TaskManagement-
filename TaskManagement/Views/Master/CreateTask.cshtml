@@ -238,6 +238,46 @@
                     <a class="btn btn-warning" href="@Url.Action("GetTaskList","Master")">Back to List</a>
                 </div>
             </div>
+
+            @if (Model.CommentList.Count > 0)
+            {
+                <div class="table-responsive pt-3">
+                    <table class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Status</th>
+                                <th>Comment </th>
+                                <th>Download</th>
+                                <th>Commented By</th>
+                                <th>Commented date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var item in Model.CommentList)
+                            {
+                                <tr>
+                                    <td>@item.Status</td>
+                                    <td>@item.Remark</td>
+                                    @if (item.Filename != "")
+                                    {
+                                        <td align="center">
+                                            @Html.ActionLink(" ", "DocDownload", new { TaskId = Model.TaskId, DocumentPath = item.Filename, CalledFrom = "Assignee" }, new { @class = "btn btn-warning btn-sm fa fa-folder-open", @style = "color:green" })
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td></td>
+                                    }
+                                    <td>@item.CommentBy</td>
+                                    <td>@item.CreatedDate</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            }
+
+           
             </form>
 </div>
 }

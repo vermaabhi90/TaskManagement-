@@ -1914,6 +1914,9 @@
     <Content Include="Views\Master\CreateTask.cshtml" />
     <Content Include="Views\Master\GetPendingApprovalTaskList.cshtml" />
     <Content Include="Views\Master\CreatePendingAprovalTask.cshtml" />
+    <Content Include="Views\Master\GetAssigneeTaskList.cshtml" />
+    <Content Include="Views\Master\CreateAssigneeTaskUpdated.cshtml" />
+    <Content Include="Views\Master\AddAssigneeComments.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

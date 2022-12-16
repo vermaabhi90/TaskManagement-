@@ -413,7 +413,6 @@ namespace DAL
             }
             return errCode;
         }
-
         public DataSet GetEmpDrpDwnList(int TaskId)
         {
             DataSet ds = new DataSet();
@@ -431,5 +430,83 @@ namespace DAL
             return ds;
         }
         #endregion Task Master
+
+        #region Assignee User Task Process
+
+        public DataSet GetAssigneeTaskList(string UserId)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                SqlParameter[] parameters = new SqlParameter[1];
+                parameters[0] = new SqlParameter("@UserId", SqlDbType.NVarChar);
+                parameters[0].Value = UserId;
+                ds = SqlHelper.ExecuteDataset(Common.SqlConnectionString, CommandType.StoredProcedure, "sp_GetAssigneeTaskList", parameters);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ds;
+        }
+        public DataSet GetAssigneeTaskLogList(int TaskId)
+        {
+            DataSet ds = new DataSet();
+            try
+            {
+                SqlParameter[] parameters = new SqlParameter[1];
+                parameters[0] = new SqlParameter("@TaskId", SqlDbType.Int);
+                parameters[0].Value = TaskId;
+                ds = SqlHelper.ExecuteDataset(Common.SqlConnectionString, CommandType.StoredProcedure, "sp_GetTaskLogList", parameters);
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return ds;
+        }
+
+        public int UpdateAssigneeTaskStatusDetails(string UserId, int TaskId, int FromStatusId, int ToStatusId, string Remark,string FileName)
+        {
+            int errCode = 0;
+            try
+            {
+                SqlParameter[] parameters = new SqlParameter[8];
+
+                parameters[0] = new SqlParameter("@TaskId", SqlDbType.Int);
+                parameters[0].Value = TaskId;
+
+                parameters[1] = new SqlParameter("@FromStatusId", SqlDbType.VarChar);
+                parameters[1].Value = FromStatusId;
+
+                parameters[2] = new SqlParameter("@ToStatusId", SqlDbType.VarChar);
+                parameters[2].Value = ToStatusId;
+
+                parameters[3] = new SqlParameter("@Remark", SqlDbType.VarChar);
+                parameters[3].Value = Remark;
+
+                parameters[4] = new SqlParameter("@FileName", SqlDbType.VarChar);
+                parameters[4].Value = FileName;
+
+                parameters[5] = new SqlParameter("@UserId", SqlDbType.NVarChar);
+                parameters[5].Value = UserId;
+
+                parameters[6] = new SqlParameter("@ErrorCode", SqlDbType.Int);
+                parameters[6].Value = 0;
+                parameters[6].Direction = ParameterDirection.InputOutput;
+
+                SqlHelper.ExecuteDataset(Common.SqlConnectionString, CommandType.StoredProcedure, "sp_UpdateAssigneeTaskStatusDetails", parameters);
+                if (parameters[6].Value != null)
+                    errCode = Convert.ToInt32(parameters[6].Value.ToString());
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            return errCode;
+        }
+
+
+        #endregion Assignee User Task Process
     }
 }
