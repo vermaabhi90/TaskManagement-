@@ -19,3 +19,8 @@ C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement
 C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\TaskUtility\obj\Debug\TaskUtility.csprojResolveAssemblyReference.cache
 C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\TaskUtility\obj\Debug\TaskUtility.dll
 C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\TaskUtility\obj\Debug\TaskUtility.pdb
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Final_Changes\TaskManagement-\TaskUtility\bin\Debug\TaskUtility.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Final_Changes\TaskManagement-\TaskUtility\bin\Debug\TaskUtility.pdb
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Final_Changes\TaskManagement-\TaskUtility\obj\Debug\TaskUtility.csprojResolveAssemblyReference.cache
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Final_Changes\TaskManagement-\TaskUtility\obj\Debug\TaskUtility.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Final_Changes\TaskManagement-\TaskUtility\obj\Debug\TaskUtility.pdb

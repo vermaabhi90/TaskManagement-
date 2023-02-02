@@ -27,3 +27,12 @@ C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement
 C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\BL\obj\Debug\BL.csprojResolveAssemblyReference.cache
 C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\BL\obj\Debug\BL.dll
 C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\TaskManagement-\TaskManagement-\BL\obj\Debug\BL.pdb
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Final_Changes\TaskManagement-\BL\bin\Debug\BL.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Final_Changes\TaskManagement-\BL\bin\Debug\BL.pdb
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Final_Changes\TaskManagement-\BL\bin\Debug\DAL.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Final_Changes\TaskManagement-\BL\bin\Debug\TaskUtility.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Final_Changes\TaskManagement-\BL\bin\Debug\DAL.pdb
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Final_Changes\TaskManagement-\BL\bin\Debug\TaskUtility.pdb
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Final_Changes\TaskManagement-\BL\obj\Debug\BL.csprojResolveAssemblyReference.cache
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Final_Changes\TaskManagement-\BL\obj\Debug\BL.dll
+C:\Users\91880\OneDrive\Desktop\MyWorkDocs\MyWork\Final_Changes\TaskManagement-\BL\obj\Debug\BL.pdb

@@ -131,6 +131,13 @@ namespace BL
 
         public int AssigneeStatus { get; set; }
 
+        [Required]
+        [DisplayName("Company Name")]
+        public string CompanyName { get; set; }
+
+        [Required]
+        [DisplayName("Time")]
+        public string Time { get; set; }
     }
 
 

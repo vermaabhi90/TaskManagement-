@@ -233,6 +233,8 @@ namespace BL
                         Model.WeekDay = Convert.ToInt32(ds.Tables[0].Rows[0]["WeekDays"].ToString());
                         Model.AssignedToEmpId = Convert.ToInt32(ds.Tables[0].Rows[0]["AssignedToEmpId"].ToString());
                         Model.NthDay = Convert.ToInt32(ds.Tables[0].Rows[0]["NthDay"].ToString());
+                        Model.Time = ds.Tables[0].Rows[0]["Time"].ToString();
+                        Model.CompanyName = ds.Tables[0].Rows[0]["CompanyName"].ToString();
                     }
 
                 }
@@ -267,6 +269,8 @@ namespace BL
                         dr["MonthNo"] = Model.MonthNo;
                         dr["NthDay"] = Model.NthDay;
                         dr["AssignedToEmpId"] = Model.AssignedToEmpId;
+                        dr["Time"] = Model.Time;
+                        dr["CompanyName"] = Model.CompanyName;
                         return DALObj.SaveTaskDetails(dr, UserId, out TaskId);
                     }
                 }

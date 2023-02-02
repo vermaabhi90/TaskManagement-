@@ -301,7 +301,7 @@ namespace DAL
             TaskId = 0;
             try
             {
-                SqlParameter[] parameters = new SqlParameter[15];
+                SqlParameter[] parameters = new SqlParameter[17];
 
                 parameters[0] = new SqlParameter("@TaskId", SqlDbType.Int);
                 parameters[0].Value = dr["TaskId"];
@@ -349,6 +349,12 @@ namespace DAL
 
                 parameters[14] = new SqlParameter("@AssignedToEmpId", SqlDbType.Int);
                 parameters[14].Value = dr["AssignedToEmpId"];
+
+                parameters[15] = new SqlParameter("@Time", SqlDbType.VarChar);
+                parameters[15].Value = dr["Time"];
+
+                parameters[16] = new SqlParameter("@CompanyName", SqlDbType.VarChar);
+                parameters[16].Value = dr["CompanyName"];
 
                 SqlHelper.ExecuteDataset(Common.SqlConnectionString, CommandType.StoredProcedure, "sp_SaveTaskDetails", parameters);
                 if (parameters[8].Value != null)

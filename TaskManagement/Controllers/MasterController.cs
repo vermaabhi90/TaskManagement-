@@ -242,6 +242,8 @@ namespace TaskManagement.Controllers
                 Model.isActive = obj.isActive;
                 Model.AssignedToEmpId = obj.AssignedToEmpId;
                 Model.FrequencyType = obj.FrequencyType;
+                Model.CompanyName = obj.CompanyName;
+                Model.Time = obj.Time;
                 switch (Model.FrequencyType)
                 {
                     case "Daily":

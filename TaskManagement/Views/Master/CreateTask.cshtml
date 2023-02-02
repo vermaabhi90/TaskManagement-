@@ -53,7 +53,10 @@
                 <label>cc Mail</label>
                 <input type="text" class="form-control" id="ccMail" name="ccMail" placeholder="cc Mail" maxlength="200" value="@Model.ccMail" required>
             </div>
-
+            <div class="form-group">
+                <label>Company Name</label>
+                <input type="text" class="form-control" id="CompanyName" name="CompanyName" placeholder="Company Name" maxlength="250" value="@Model.CompanyName" required>
+            </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.AssignedToEmpId, htmlAttributes: new { @class = "form - control" })
                 <div class="col-md-10">
@@ -61,7 +64,68 @@
                 
                 </div>
             </div>
-
+            <div class="form-group">
+                @Html.LabelFor(model => model.Time, htmlAttributes: new { @class = "form - control" })
+                <div class="col-md-10">
+                    @Html.DropDownListFor(model => model.Time, new SelectList(new List<Object>
+                {
+                new { value = "00:00:00"  , text = "00:00:00"  },
+                new { value = "00:30:00" , text = "00:30:00" },
+                new { value = "01:00:00" , text = "01:00:00"},
+                new { value = "01:30:00" , text = "01:30:00"},
+                new { value = "02:00:00"  , text = "02:00:00"  },
+                new { value = "02:30:00" , text = "02:30:00" },
+                new { value = "03:00:00" , text = "03:00:00"},
+                new { value = "03:30:00" , text = "03:30:00"},
+                new { value = "04:00:00"  , text = "04:00:00"  },
+                new { value = "04:30:00" , text = "04:30:00" },
+                new { value = "05:00:00" , text = "05:00:00"},
+                new { value = "05:30:00" , text = "05:30:00"},
+                new { value = "06:00:00"  , text = "06:00:00"  },
+                new { value = "06:30:00" , text = "06:30:00" },
+                new { value = "07:00:00" , text = "07:00:00"},
+                new { value = "07:30:00" , text = "07:30:00"},
+                new { value = "08:00:00"  , text = "08:00:00"  },
+                new { value = "08:30:00" , text = "08:30:00" },
+                new { value = "09:00:00" , text = "09:00:00"},
+                new { value = "09:30:00" , text = "09:30:00"},
+                new { value = "10:00:00"  , text = "10:00:00"  },
+                new { value = "10:30:00" , text = "10:30:00" },
+                new { value = "11:00:00" , text = "11:00:00"},
+                new { value = "11:30:00" , text = "11:30:00"},
+                new { value = "12:00:00"  , text = "12:00:00"  },
+                new { value = "12:30:00" , text = "12:30:00" },
+                new { value = "13:00:00" , text = "13:00:00"},
+                new { value = "13:30:00" , text = "13:30:00"},
+                new { value = "14:00:00"  , text = "14:00:00"  },
+                new { value = "14:30:00" , text = "14:30:00" },
+                new { value = "15:00:00" , text = "15:00:00"},
+                new { value = "15:30:00" , text = "15:30:00"},
+                new { value = "16:00:00"  , text = "16:00:00"  },
+                new { value = "16:30:00" , text = "16:30:00" },
+                new { value = "17:00:00" , text = "17:00:00"},
+                new { value = "17:30:00" , text = "17:30:00"},
+                new { value = "18:00:00"  , text = "18:00:00"  },
+                new { value = "18:30:00" , text = "18:30:00" },
+                new { value = "19:00:00" , text = "19:00:00"},
+                new { value = "19:30:00" , text = "19:30:00"},
+                new { value = "20:00:00"  , text = "20:00:00"  },
+                new { value = "20:30:00" , text = "20:30:00" },
+                new { value = "21:00:00" , text = "21:00:00"},
+                new { value = "21:30:00" , text = "21:30:00"},
+                new { value = "22:00:00"  , text = "22:00:00"  },
+                new { value = "22:30:00" , text = "22:30:00" },
+                new { value = "23:00:00" , text = "23:00:00"},
+                new { value = "23:30:00" , text = "23:30:00"},
+                new { value = "24:00:00"  , text = "24:00:00"  }
+                },
+                "value",
+                "text",
+                Model.Time
+                )
+                )
+                </div>
+            </div>
             <div class="form-group">
                 @Html.LabelFor(model => model.FrequencyType, htmlAttributes: new { @class = "form - control" })
                 <div class="col-md-10">
@@ -79,6 +143,8 @@
                 )
                 </div>
             </div>
+
+            
 
             <div class="row" id="WeekOption">
                 <section class="col col-1">
